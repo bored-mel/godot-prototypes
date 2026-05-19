@@ -1,7 +1,23 @@
 [gd_scene format=3 uid="uid://cxphvpj3hiwcl"]
 
 [ext_resource type="PackedScene" uid="uid://dtqlt6wnyr073" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cpvd76uuvq7y5" path="res://assets/dungeontiles.png" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://bo8ugpu6ywy5m" path="res://scripts/DungeonGenerator.gd" id="3_jyhfs"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
+texture = ExtResource("2_sugp2")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tefeu"]
+sources/0 = SubResource("TileSetAtlasSource_tbgi4")
 
 [node name="Main" type="Node2D" unique_id=2075074132]
+
+[node name="DungeonMap" type="TileMapLayer" parent="." unique_id=532847665]
+tile_set = SubResource("TileSet_tefeu")
+
+[node name="DungeonGenerator" type="Node" parent="." unique_id=805393289]
+script = ExtResource("3_jyhfs")
 
 [node name="Player" parent="." unique_id=863058572 instance=ExtResource("1_o5qli")]
