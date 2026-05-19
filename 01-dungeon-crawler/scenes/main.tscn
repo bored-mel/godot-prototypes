@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dtqlt6wnyr073" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://cpvd76uuvq7y5" path="res://assets/dungeontiles.png" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://bo8ugpu6ywy5m" path="res://scripts/DungeonGenerator.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://co2anu0dlk1e2" path="res://scripts/ui/Minimap.gd" id="4_jyhfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("2_sugp2")
@@ -16,10 +17,23 @@ sources/0 = SubResource("TileSetAtlasSource_tbgi4")
 
 [node name="Main" type="Node2D" unique_id=2075074132]
 
-[node name="DungeonMap" type="TileMapLayer" parent="." unique_id=532847665]
+[node name="DungeonMap" type="TileMapLayer" parent="." unique_id=532847665 groups=["dungeon_map"]]
 tile_set = SubResource("TileSet_tefeu")
 
 [node name="DungeonGenerator" type="Node" parent="." unique_id=805393289]
 script = ExtResource("3_jyhfs")
 
 [node name="Player" parent="." unique_id=863058572 instance=ExtResource("1_o5qli")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1342684821]
+
+[node name="Minimap" type="Control" parent="UI" unique_id=1740937587]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_right = -20.0
+offset_bottom = 120.0
+grow_horizontal = 0
+script = ExtResource("4_jyhfs")
