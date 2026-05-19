@@ -20,7 +20,7 @@ sources/0 = SubResource("TileSetAtlasSource_tbgi4")
 [node name="DungeonMap" type="TileMapLayer" parent="." unique_id=532847665 groups=["dungeon_map"]]
 tile_set = SubResource("TileSet_tefeu")
 
-[node name="DungeonGenerator" type="Node" parent="." unique_id=805393289]
+[node name="DungeonGenerator" type="Node" parent="." unique_id=805393289 groups=["dungeon_generator"]]
 script = ExtResource("3_jyhfs")
 
 [node name="Player" parent="." unique_id=863058572 instance=ExtResource("1_o5qli")]

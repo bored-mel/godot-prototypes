@@ -25,3 +25,8 @@ func _draw() -> void:
 	
 	var player_tile = Vector2(player.global_position / 16.0) * TILE_SIZE
 	draw_circle(player_tile, 3.0, PLAYER_COLOR)
+	
+	var generator = get_tree().get_first_node_in_group("dungeon_generator")
+	var stairs_pos = generator.get_stairs_position()
+	var stairs_tile = Vector2(stairs_pos / 16.0) * TILE_SIZE
+	draw_circle(stairs_tile, 3.0, Color(1.0, 0.8, 0.0))

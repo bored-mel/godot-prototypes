@@ -12,19 +12,46 @@ const WALL_TILE := Vector2i(1, 0)
 var rooms: Array[Rect2i] = []
 var tilemap: TileMapLayer
 
+var player: CharacterBody2D
+var stairs_position := Vector2.ZERO
+var floor_number := 1
+
+signal dungeon_generated(floor_num: int)
+
+
 func _ready() -> void:
 	tilemap = get_parent().get_node("DungeonMap")
+	player = get_parent().get_node("Player")
+	generate_new_floor()
+
+
+func generate_new_floor() -> void:
+	rooms.clear()
 	generate()
 	
-	var player = get_parent().get_node("Player")
 	var first_room_center = rooms[0].get_center()
 	player.spawn_at(Vector2(first_room_center) * 16.0)
-
+	
+	var last_room = rooms[rooms.size() - 1]
+	var stairs_tile = last_room.get_center()
+	stairs_position = Vector2(stairs_tile) * 16.0 + Vector2(8, 8)
+	
+	dungeon_generated.emit(floor_number)
+	
+	
+	
 func generate() -> void:
 	fill_with_walls()
 	place_rooms()
 	connect_rooms()
 
+func get_stairs_position() -> Vector2:
+	return stairs_position
+
+func next_floor() -> void:
+	floor_number += 1
+	generate_new_floor()
+	
 func fill_with_walls() -> void:
 	for x in MAP_WIDTH:
 		for y in MAP_HEIGHT:
