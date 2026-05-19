@@ -16,17 +16,27 @@ var player: CharacterBody2D
 var stairs_position := Vector2.ZERO
 var floor_number := 1
 
+var enemy_scene := preload("res://scenes/Enemy.tscn")
+var enemies_node: Node
+
 signal dungeon_generated(floor_num: int)
 
 
 func _ready() -> void:
 	tilemap = get_parent().get_node("DungeonMap")
 	player = get_parent().get_node("Player")
+	
+	enemies_node = Node.new()
+	enemies_node.name = "Enemies"
+	get_parent().call_deferred("add_child", enemies_node)
+	
+	await get_tree().process_frame
 	generate_new_floor()
 
 
 func generate_new_floor() -> void:
 	rooms.clear()
+	clear_enemies()
 	generate()
 	
 	var first_room_center = rooms[0].get_center()
@@ -36,7 +46,28 @@ func generate_new_floor() -> void:
 	var stairs_tile = last_room.get_center()
 	stairs_position = Vector2(stairs_tile) * 16.0 + Vector2(8, 8)
 	
+	spawn_enemies()
 	dungeon_generated.emit(floor_number)
+
+func clear_enemies() -> void:
+	for enemy in enemies_node.get_children():
+		enemy.queue_free()
+
+func spawn_enemies() -> void:
+	for i in range(1, rooms.size() - 1):
+		var room = rooms[i]
+		var enemy_count = randi_range(1, 3)
+		for j in enemy_count:
+			var enemy = enemy_scene.instantiate()
+			var rand_x = randf_range(room.position.x + 1, room.end.x - 1)
+			var rand_y = randf_range(room.position.y + 1, room.end.y - 1)
+			enemy.global_position = Vector2(rand_x, rand_y) * 16.0
+			enemies_node.add_child(enemy)
+			print("Enemy parent: ", enemy.get_parent().name)
+			print("Enemy visible: ", enemy.visible)
+			print("Enemy in tree: ", enemy.is_inside_tree())
+			print("Enemy spawned at: ", enemy.global_position)
+	print("Total enemies: ", enemies_node.get_child_count())
 	
 	
 	

@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cpvd76uuvq7y5" path="res://assets/dungeontiles.png" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://bo8ugpu6ywy5m" path="res://scripts/DungeonGenerator.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://co2anu0dlk1e2" path="res://scripts/ui/Minimap.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://iwru18jn0t0g" path="res://scripts/ui/FloorLabel.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bx5b1vpxq1l0n" path="res://scenes/enemy.tscn" id="6_tefeu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("2_sugp2")
@@ -37,3 +39,15 @@ offset_right = -20.0
 offset_bottom = 120.0
 grow_horizontal = 0
 script = ExtResource("4_jyhfs")
+
+[node name="FloorLabel" type="Label" parent="UI" unique_id=1503380777]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 78.0
+offset_bottom = 43.0
+theme_override_font_sizes/font_size = 24
+text = "Floor: 1"
+script = ExtResource("5_tbgi4")
+
+[node name="Enemy" parent="." unique_id=850330462 instance=ExtResource("6_tefeu")]
+position = Vector2(20, 20)
