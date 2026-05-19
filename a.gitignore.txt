@@ -1,0 +1,7 @@
+.godot/
+*.translation
+export/
+*.pck
+*.zip
+.DS_Store
+Thumbs.db
